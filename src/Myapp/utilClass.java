@@ -32,7 +32,7 @@ public class utilClass {
 		}
 		if(index==1){//真分数
 			Random rand1=new Random();
-			int denominator=rand1.nextInt(range-1)+1;//分母
+			int denominator=rand1.nextInt(range-2)+2;//分母[2,range)
 			int numerator=rand1.nextInt(denominator-1)+1;//分子
 			num=numerator+"/"+denominator+"";
 			/*System.out.println(denominator);
@@ -42,7 +42,7 @@ public class utilClass {
 		if(index==2){//带分数
 			Random rand2=new Random();
 			int leftNum=rand2.nextInt(range-1)+1;//左整数部分
-			int rightDeno=rand2.nextInt(range-1)+1;//右真分数部分-分母
+			int rightDeno=rand2.nextInt(range-2)+2;//右真分数部分-分母[2,range)
 			int rightNume=rand2.nextInt(rightDeno-1)+1;//右真分数部分-分子
 			num=leftNum+"'"+rightNume+"/"+rightDeno+"";
 		}
