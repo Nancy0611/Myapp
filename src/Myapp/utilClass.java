@@ -1,4 +1,5 @@
 package Myapp;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -50,12 +51,19 @@ public class utilClass {
 		return num;
 	}
 	
+	public static String deleteParen(String str){//去表达式最前和最后的括号
+		if((str.substring(0, 1).equals("(")) && (str.substring(str.length()-1).equals(")"))){
+			str=str.substring(1, str.length()-1);
+		}
+		return str;
+	}
+	
 	/*生成四则运算表达式
 	 * acNum生成题目的个数
 	 * range题目中操作数的范围*/
 	public static void creatAc(int acNum,int range){
 		Random rand4=new Random();
-		
+		ArrayList<String> list=new ArrayList<String>();
 		for(int i=0;i<acNum;i++){
 			boolean openParen=false;//左括号
 			boolean closeParen=false;//右括号
@@ -85,7 +93,11 @@ public class utilClass {
 			if(openParen && !closeParen){
 				str+=")";
 			}
-		System.out.println(str);	
+		str=deleteParen(str);//去掉开头和结尾均为括号
+		list.add(str);
+//		for(String a:list){
+//			System.out.println(a);
+//		}
 		}
 		
 	}
