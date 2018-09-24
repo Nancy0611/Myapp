@@ -1,6 +1,7 @@
 package Myapp;
 
-import Myapp.stack;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class RPN {
 	
@@ -8,62 +9,75 @@ public class RPN {
      *  将中序表达式转换成后序表达式
      * @param str 生成的中序表达式
      */
-	public static String toRPN(String str){
-		stack stack=new stack();//栈
-		String rpn=" ";//后缀表达式
+	public static Stack<String> toRPN(ArrayList<String> list){
+		Stack<String> stack=new Stack<String>();//栈
+		Stack<String> right=new Stack<String>();//右序表达式
 		String operate;//运算符
-		for(int i=0;i<str.length();i++){
-			char ch=str.charAt(i);
+			
+		for(int i=0;i<list.size();i++){
+			String ch=list.get(i);
+//			System.out.println(ch);
 			if(isOperator(ch)){//当前字符为运算符
-				if(stack.top==-1 || ch=='('){//栈为空或者为（直接入栈
+				if(stack.empty()==true || ch=="("){//栈为空或者为（直接入栈
 					stack.push(ch);
-				}else{
-					if(ch==')'){//如果为）
+//					System.out.println("栈为空或者为（直接入栈" + ch);
+//					System.out.println(stack.peek());
+				}else{//非栈空、非左括号
+//					System.out.println("非栈空、非左括号"+ch);
+					if(ch==")"){//如果为）
 						while(true){//将（后的运算符出栈并加到后续表达式中
-							if(stack.top!=-1 && (!stack.top().toString().equals("("))){
-								operate=stack.pop().toString();
+//							System.out.println("111");
+							if((!stack.empty()) && (!stack.peek().equals("("))){
+//								System.out.println("111111");
+								operate=stack.pop();
 //								System.out.println(operate);
-								rpn+=operate;
+								right.push(operate);
 							}else{
-								if(stack.top!=-1)//如果栈顶元素为（
+								if(!stack.empty())//如果栈顶元素为（
 									stack.pop();
 								break;
 							}
 						}
-					}else{
+					}else{//非栈空、非左括号、非右括号
+//						System.out.println(0);
 						while(true){//栈不为空，优先级低
-							if(stack.top!=-1 && priority(ch+"",stack.top()+"")){
+//							System.out.println(2);
+							if(!stack.empty() && priority(ch,stack.peek())){
 								operate=stack.pop()+"";
+//								System.out.println(22);
 //								System.out.println(operate);
 								if(!operate.equals("(")){
-									rpn+=operate;
+									right.push(operate);
 								}
 							}else{
 								break;
 							}
 						}
-						stack.push(ch);
+						stack.push(ch+"");
 					}
 				}
 				
 			}else{
-				rpn+=ch;//操作数
+				right.push(ch+"");//操作数
 			}
 		}
-		while(stack.top!=-1){
+		while(!stack.empty()){
 			operate=stack.pop()+"";
 			if(!operate.equals("("))
-				rpn+=operate;
+				right.push(operate);
 		}
-		System.out.println(rpn);
-		return rpn;
+		
+		while(!right.empty()){
+			System.out.println(right.pop());
+		}
+		return right;
 	}
 	
 	/**
 	 * 判断是否为运算符
 	 */
-	public static boolean isOperator(char ch){
-		if((ch=='+')||(ch=='-')||(ch=='*')||(ch=='÷')||(ch=='(')||(ch==')'))
+	public static boolean isOperator(String ch){
+		if((ch.equals("+"))||(ch.equals("-"))||(ch.equals("*"))||(ch.equals("÷"))||(ch.equals("("))||(ch.equals(")")))
 			return true;
 		else 
 			return false;

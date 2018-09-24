@@ -7,26 +7,41 @@ import java.util.Scanner;
 public class utilClass {
 	public static char[] operate={'+','-','*','÷'};
 	
-	public static String getScanner(){//获取输入
+	/**
+	 * 获取输入
+	 * @return 
+	 */
+	public static String getScanner(){
 		Scanner scan=new Scanner(System.in);
 		String input=scan.nextLine();
 		scan.close();
 		return input;
 	}
 	
-	public static char getOperate(){//随机获取运算符
+	/**
+	 * 随机获取运算符+ - * ÷
+	 * @return
+	 */
+	public static char getOperate(){
 		Random rand=new Random();
 		int operateNum=rand.nextInt(4);
 		//System.out.println(operate[operateNum]);
 		return operate[operateNum];
 	}
 	
-	public static String getNumber(int range){//获取操作数
+	/**
+	 * 获取操作数
+	 * @param range 数值范围
+	 * @return
+	 */
+	public static String getNumber(int range){
 		Random rand=new Random();
 		int index=rand.nextInt(3);
 		String num="";
 		
-		/* 随机获取数字，0获取自然数，1获取真分数，2获取带分数*/
+		/**
+		 * 随机获取数字，0获取自然数，1获取真分数，2获取带分数
+		 */
 		if(index==0){//自然数
 			Random rand0=new Random();
 			num=rand0.nextInt(range-1)+1+"";
@@ -51,20 +66,28 @@ public class utilClass {
 		return num;
 	}
 	
-	public static String deleteParen(String str){//去表达式最前和最后的括号
+	/**
+	 * 去表达式最前和最后的括号
+	 * @param str表达式
+	 * @return
+	 */
+	public static String deleteParen(String str){
 		if((str.substring(0, 1).equals("(")) && (str.substring(str.length()-1).equals(")"))){
 			str=str.substring(1, str.length()-1);
 		}
 		return str;
 	}
 	
-	/*生成四则运算表达式
+	/**
+	 * 生成四则运算表达式
 	 * acNum生成题目的个数
-	 * range题目中操作数的范围*/
+	 * range题目中操作数的范围
+	 */
 	public static void creatAc(int acNum,int range){
 		Random rand4=new Random();
-		ArrayList<String> list=new ArrayList<String>();
+			ArrayList<String> totalList=new ArrayList<String>();//全部表达式
 		for(int i=0;i<acNum;i++){
+			ArrayList<String> list=new ArrayList<String>();//存放每个表达式中的运算符和操作数
 			boolean openParen=false;//左括号
 			boolean closeParen=false;//右括号
 			boolean tem=false;
@@ -74,31 +97,45 @@ public class utilClass {
 				//决定是否加入左括号
 				if(!openParen && rand4.nextBoolean()){
 					str+="(";
+					list.add("(");
 					openParen=true;
 				}
-				str+=getNumber(range).toString();
+				String num1=getNumber(range);
+				str+=num1;
+				list.add(num1);
 				//决定是否加入右括号
 				if(openParen && !closeParen && tem){
 					if(rand4.nextBoolean()){
 						str+=")";
+						list.add(")");
 						closeParen=true;
 					}
 				}
-				str+=getOperate();
+				char char1=getOperate();
+				str+=char1;
+				list.add(char1+"");
 				if(openParen){
 					tem=true;
 				}
 			}
-			str+=getNumber(range).toString();
+			String num2=getNumber(range);
+			str+=num2;
+			list.add(num2);
 			if(openParen && !closeParen){
 				str+=")";
+				list.add(")");
 			}
 		str=deleteParen(str);//去掉开头和结尾均为括号
-		list.add(str);
-//		for(String a:list){
-//			System.out.println(a);
-//		}
-		}
 		
+		System.out.println(str);
+		totalList.add(str);//将该表达式加入全体表达式数组
+		RPN.toRPN(list);
+		
+		}
+//		for(int p=0;p<totalList.size();p++){
+//			System.out.println(totalList.get(p));
+//		}
 	}
+	
+	
 }
