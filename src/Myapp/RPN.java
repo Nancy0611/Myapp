@@ -5,7 +5,7 @@ import Myapp.stack;
 public class RPN {
 	
 	/**
-     *  将中序表达式转换成后续表达式
+     *  将中序表达式转换成后序表达式
      * @param str 生成的中序表达式
      */
 	public static String toRPN(String str){
@@ -20,8 +20,9 @@ public class RPN {
 				}else{
 					if(ch==')'){//如果为）
 						while(true){//将（后的运算符出栈并加到后续表达式中
-							if(stack.top!=-1 && (stack.top()+"")!="("){
+							if(stack.top!=-1 && (!stack.top().toString().equals("("))){
 								operate=stack.pop().toString();
+//								System.out.println(operate);
 								rpn+=operate;
 							}else{
 								if(stack.top!=-1)//如果栈顶元素为（
@@ -31,8 +32,9 @@ public class RPN {
 						}
 					}else{
 						while(true){//栈不为空，优先级低
-							if(stack.top!=-1 && priority(ch+"",stack.top+"")){
+							if(stack.top!=-1 && priority(ch+"",stack.top()+"")){
 								operate=stack.pop()+"";
+//								System.out.println(operate);
 								if(!operate.equals("(")){
 									rpn+=operate;
 								}
@@ -45,7 +47,7 @@ public class RPN {
 				}
 				
 			}else{
-				rpn+=ch;
+				rpn+=ch;//操作数
 			}
 		}
 		while(stack.top!=-1){
