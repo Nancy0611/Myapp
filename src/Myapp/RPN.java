@@ -67,9 +67,14 @@ public class RPN {
 				right.push(operate);
 		}
 		
-		while(!right.empty()){
-			System.out.println(right.pop());
-		}
+//		Stack<String> newRight = new Stack<>();
+//		while (!right.isEmpty()) {
+//			System.out.print(right.peek());
+//			newRight.push(right.pop());
+//		}
+//		System.out.println();
+//		System.out.println(right.peek());
+//		System.out.println();
 		return right;
 	}
 	
