@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class utilClass {
 	public static char[] operate={'+','-','*','÷'};
-	
+	public static String final_str;//四则运算表达式
 	/**
 	 * 获取输入
 	 * @return 
@@ -87,46 +87,47 @@ public class utilClass {
 		boolean openParen=false;//左括号
 		boolean closeParen=false;//右括号
 		boolean tem=false;
-		String str="";//四则运算表达式
 		int operateNum=rand4.nextInt(3)+1;//每个表达式运算符个数1-3个
+		final_str="";
 		
 		//------------开始生成--------------
 		for(int j=0;j<operateNum;j++){
+			
 			//决定是否加入左括号
 			if(!openParen && rand4.nextBoolean()){
-				str+="(";
+				final_str+="(";
 				list.add("(");
 				openParen=true;
 			}
 			String num1=getNumber(range);
-			str+=num1;
+			final_str+=num1;
 			list.add(num1);
 			//决定是否加入右括号
 			if(openParen && !closeParen && tem){
 				if(rand4.nextBoolean()){
-					str+=")";
+					final_str+=")";
 					list.add(")");
 					closeParen=true;
 				}
 			}
 			char char1=getOperate();
-			str+=char1;
+			final_str+=char1;
 			list.add(char1+"");
 			if(openParen){
 				tem=true;
 			}
 		}
 		String num2=getNumber(range);
-		str+=num2;
+		final_str+=num2;
 		list.add(num2);
 		if(openParen && !closeParen){
-			str+=")";
+			final_str+=")";
 			list.add(")");
 		}
-		str=deleteParen(str);//去掉开头和结尾均为括号
+		final_str=deleteParen(final_str);//去掉开头和结尾均为括号
 		//------------结束生成--------------
 		
-		System.out.print(str+" "+"="+" ");
+//		System.out.println(final_str);
 		return list;
 		
 //		Stack<String> toRpn = RPN.toRPN(list);

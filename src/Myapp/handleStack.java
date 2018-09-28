@@ -6,34 +6,34 @@ import java.util.Stack;
  * 存于handleStack对象的calculatorStack中
  */
 public class handleStack {
-Stack<Calculator> calculatorStack;
+Stack<Node> posfixStack;
 	
 	public handleStack(Stack<String> stack) {
 		// TODO Auto-generated constructor stub
-		Stack<Calculator> stack1 = new Stack<>();//中间栈
-		Stack<Calculator> stack2 = new Stack<>();//中间栈
+		Stack<Node> stack1 = new Stack<>();//中间栈
+		Stack<Node> stack2 = new Stack<>();//中间栈
 		//String s;
 		while(!stack.isEmpty()){
 			String string = stack.pop();
 			//运算符直接进栈
 			if(string.equals("+")||string.equals("-")||string.equals("*")||string.equals("÷")){
-				Calculator calculator = new Calculator(true,string);
-				stack1.push(calculator);
+				Node node = new Node(true,string);
+				stack1.push(node);
 			}
 			else if(!string.contains("/")){
 				string = string + "/1";
-				Calculator calculator = new Calculator(false,string);
-				stack1.push(calculator);
+				Node node = new Node(false,string);
+				stack1.push(node);
 			}
 			else {
-				Calculator calculator = new Calculator(false,string);
+				Node calculator = new Node(false,string);
 				stack1.push(calculator);
 			}
 		}
-		for(Calculator c:stack1){
+		for(Node c:stack1){
 			stack2.push(c);
 		}
-		this.calculatorStack = stack2;
+		this.posfixStack = stack2;
 //		for(Calculator c:this.calculatorStack){
 //			System.out.println(c.operator + c.numerator + "/" + c.denominator);
 //		}
