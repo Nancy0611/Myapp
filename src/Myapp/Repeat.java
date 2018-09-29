@@ -1,9 +1,6 @@
 package Myapp;
-
 import java.util.ArrayList;
 import java.util.Stack;
-
-import com.sun.corba.se.impl.orbutil.graph.NodeData;
 
 /**
  * 构造方法：生成查重表达式
@@ -11,10 +8,7 @@ import com.sun.corba.se.impl.orbutil.graph.NodeData;
  *
  */
 public class Repeat {
-	
-	
 	/**
-	 * 
 	 * @param profixStack 后缀表达式栈
 	 */
 	public Stack<Node> checkRepeat(Stack<Node> profixStack) {
@@ -128,10 +122,7 @@ public class Repeat {
 				}
 			}
 			
-		}
-				
+		}		
 		return true;
 	}
-	
-	
 }

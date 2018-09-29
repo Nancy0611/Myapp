@@ -127,23 +127,9 @@ public class utilClass {
 		final_str=deleteParen(final_str);//去掉开头和结尾均为括号
 		//------------结束生成--------------
 		
-//		System.out.println(final_str);
+		System.out.println("中途生成"+final_str);
 		return list;
 		
-//		Stack<String> toRpn = RPN.toRPN(list);
-//		System.out.println(toRpn.peek());
-//		handleStack handleStack=new handleStack(toRpn);
-//		
-//		
-//		Calculator calculator = new Calculator();
-//		Stack<Calculator> result =calculator.calculate(handleStack.calculatorStack);
-//
-//		System.out.println("分子" + result.peek().numerator);
-//		System.out.println(result.peek().numerator+"/"+result.peek().denominator);
-		
-//		for(int p=0;p<totalList.size();p++){
-//			System.out.println(totalList.get(p));
-//		}
 	}
 	
 	

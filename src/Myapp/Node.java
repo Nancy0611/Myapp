@@ -1,4 +1,5 @@
 package Myapp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -61,7 +62,8 @@ public class Node {
 	 * 根据后缀表达式（分子分母形式）计算
 	 * 返回运算结果存于stack2中
 	 */
-	public Stack<Node> calculate(Stack<Node> stack){
+	public Stack<Node> calculate(Stack<Node> stackOld){
+		Stack<Node> stack=(Stack<Node>) stackOld.clone();
 		Stack<Node> stack2 = new Stack<>();
 		Node calculator;
 		while(!stack.isEmpty()){
@@ -82,7 +84,7 @@ public class Node {
 					
 				case "-":
 					Node res=calculator.sub(calculator2, calculator1);
-					if(res.numerator>=0){
+					if(res.numerator>0){
 						stack2.push(res);
 					}else{
 						res.operator="#";
@@ -227,7 +229,35 @@ public class Node {
 		return 0;
 	}
 	
-	
+	//假分数转带分数输出
+		public ArrayList<String> imTomix(ArrayList<Node> answerList) {
+			ArrayList<String> arrayList = new ArrayList<>();
+			for (int i = 0; i < answerList.size(); i++) {
+				if (answerList.get(i).isOperator) {
+					System.out.println("不是运算结果！");
+				}
+				else if (answerList.get(i).denominator == 1){//分母为1,分数= 分子的值
+					arrayList.add(answerList.get(i).numerator + "");
+				}
+				else if ((answerList.get(i).numerator == 0) ||(answerList.get(i).numerator == 0)) {//若分子为0，则分数为0
+					arrayList.add(answerList.get(i).numerator + "");
+				}
+				else if (answerList.get(i).numerator == answerList.get(i).denominator) {//分子等于分母，answer=1
+					arrayList.add(1+"");
+				}
+				else if (answerList.get(i).numerator%answerList.get(i).denominator == 0) {//分子能整除分母
+					arrayList.add(answerList.get(i).numerator/answerList.get(i).denominator + "");
+				} 
+				else if((answerList.get(i).denominator!=0)&&answerList.get(i).numerator/answerList.get(i).denominator > 1) {//假分数，转带分数
+					arrayList.add(answerList.get(i).numerator/answerList.get(i).denominator + "'" 
+							+ answerList.get(i).numerator%answerList.get(i).denominator + "/" + answerList.get(i).denominator);
+				}
+				else {
+					arrayList.add(answerList.get(i).numerator + "/" + answerList.get(i).denominator + "");
+				}
+			}
+			return arrayList;
+		}
 	
 	
 }
